@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <script>
+        function consultar(){
+            
+           const requisicao = new XMLHttpRequest();
+           
+           requisicao.open("GET", "dados.php");
+           requisicao.send();
+           
+           requisicao.onload = function(){
+            var resposta = JSON.parse(this.responseText);
+            var organizar = "";
+            for(var i=0; i<resposta.length; i++){
+                organizar = organizar +"<div class='item'>"+
+                "<div class='description'>"+
+                "<p><span>Produto: </span>"+resposta[i].nome+"</p>"+
+                "<p><span>Descrição: </span>"+ resposta[i].desc+"</p>"+
+                "<p><span>Preço: </span>"+resposta[i].preco+"</p>"+
+                "</div>"+
+                "<button onclick='ver'>Comprar</button>"+"</div>";
+            }
+            document.getElementById('resultado').innerHTML=
+            organizar;
+           }
+        }
+    </script>
+</head>
+<body onload="consultar()">
+
+    <h1>Materiais de Construção</h1>
+    <p id="resultado"></p>
+    <p id="ver"></p>
+
+    <footer>
+        <p>Developed by João</p>
+    </footer>
+
+</body>
+</html>
